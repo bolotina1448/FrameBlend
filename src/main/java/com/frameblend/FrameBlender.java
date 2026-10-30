@@ -34,6 +34,8 @@ import java.nio.ByteBuffer;
 public class FrameBlender {
     private static final int GL_FRAMEBUFFER_BINDING = 0x8CA6;
     private static final int GL_RGBA16 = 0x805B;
+    private static final int GL_CONSTANT_ALPHA = 0x8003;
+    private static final int GL_ONE_MINUS_CONSTANT_ALPHA = 0x8004;
 
     private final Minecraft mc = Minecraft.getMinecraft();
 
@@ -169,7 +171,7 @@ public class FrameBlender {
         GL11.glEnable(GL11.GL_BLEND);
         GL14.glBlendEquation(GL14.GL_FUNC_ADD);
         GL14.glBlendColor(0f, 0f, 0f, alpha);
-        GL11.glBlendFunc(GL14.GL_CONSTANT_ALPHA, GL14.GL_ONE_MINUS_CONSTANT_ALPHA);
+        GL11.glBlendFunc(GL_CONSTANT_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
     }
 
     private static void drawQuad(float u, float v) {
