@@ -1,0 +1,15 @@
+[
+  {
+    "modid": "${modid}",
+    "name": "Frame Blending",
+    "description": "Blends each rendered frame with the previous ones for a smooth motion-blur look. /frameblend for options.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "authorList": ["you"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
