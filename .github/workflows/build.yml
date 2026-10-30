@@ -20,7 +20,19 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Execute Gradle build
-        run: ./gradlew build
+        run: |
+          chmod +x gradlew
+          set -o pipefail
+          ./gradlew build --stacktrace 2>&1 | tee build-output.txt
+
+      - name: Report build errors
+        if: failure()
+        run: |
+          enc() { sed ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g'; }
+          grep -E "error:|warning: \[|What went wrong|Could not|Caused by|FAILED|> " build-output.txt | head -80 | enc > summary.txt || true
+          echo "::error title=Build errors::$(cat summary.txt)"
+          tail -n 80 build-output.txt | enc > tail.txt
+          echo "::error title=Build output tail::$(cat tail.txt)"
 
       - name: Upload built mod JAR
         uses: actions/upload-artifact@v4.3.0
